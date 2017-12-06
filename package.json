@@ -1,0 +1,34 @@
+{
+  "name": "lgtv-alexa-skill",
+  "version": "0.9.0",
+  "description": "JS only bridge between LG TV and Amazon alexa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://lucone83@github.com/lucone83/lgtv-alexa-skill.git"
+  },
+  "keywords": [
+    "lg",
+    "alexa",
+    "tv",
+    "webos",
+    "echo",
+    "amazon",
+    "skill"
+  ],
+  "author": "Luca Ballore",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucone83/lgtv-alexa-skill/issues"
+  },
+  "homepage": "https://github.com/lucone83/lgtv-alexa-skill#readme",
+  "dependencies": {
+    "fauxmojs": "^1.0.1",
+    "ip": "^1.1.5",
+    "lgtv2": "^1.4.1",
+    "node-wol": "^0.1.1"
+  }
+}
