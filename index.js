@@ -180,7 +180,7 @@ if (config.tvMAC === null){
 }
 
 switch(process.argv[2]) {
-  case 'applist':
+  case 'appslist':
     console.log("Getting app list...");
     showAppList();
     break;
