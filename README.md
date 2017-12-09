@@ -1,7 +1,7 @@
 # Startguide - lgtv-alexa-skill
 ## Node.js bridge for LG Smart TV and Amazon Alexa
 
-### Software equirements
+### Software requirements
 - node.js
 - npm
 
@@ -19,21 +19,21 @@
 - **The first time, turning on/off the TV will ask for permission.** Just confirm the pairing and your bridge is ready!
 
 ### Functions
-**Alexa bridge**
+**Alexa bridge**  
 `node index.js` - Makes the vocal commands for TV and apps available
 
-**Toast**
+**Toast**  
 `node index.js toast "[your message]"` - Display a toast message on your TV
 
-**Apps list**
+**Apps list**  
 `node index.js appslist` - Display all the apps installed on your Smart TV and provides some useful info (appID etc.)
 
-**Service list**
+**Service list**  
 `node index.js serviceslist` - Display a list of the available services and theirs API
 
 ### Available commands
-**Turn tv on/off**: "Alexa, turn TV [on|off]"
-**Start/stop application**: "Alexa, \[start|stop\] \[your app\]"
+- **Turn tv on/off**: "Alexa, turn TV [on|off]"
+- **Start/stop application**: "Alexa, \[start|stop\] \[your app\]"
 
 ### Available applications
 - Netflix
@@ -41,8 +41,8 @@
 - Broadcasting (LiveTV)
 
 ### Thanks to
-[hobbyquacker, lgtv2 library](https://github.com/hobbyquaker/lgtv2)
-[neil-morrison-44, forked project](https://github.com/neil-morrison44/lg-alexa-node)
+- [hobbyquacker, lgtv2 library](https://github.com/hobbyquaker/lgtv2)
+- [neil-morrison-44, forked project](https://github.com/neil-morrison44/lg-alexa-node)
 
 
 
