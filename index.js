@@ -114,6 +114,27 @@ function devicesList() {
 return devices;
 }
 
+function checkStatus() {
+  const lgtv = require("lgtv2")({
+    url: URL,
+    reconnect: false
+  });
+  lgtv.on("connect", function() {
+    lgtv.subscribe("ssap://com.webos.applicationManager/getForegroundAppInfo", function(err, res){
+      if(res.appId.length == 0) {
+        console.log('Your TV is OFF!');
+      } else {
+        console.log('Your TV is ON!');
+        console.log('Active app:', res);
+      }
+      lgtv.disconnect();
+    });
+  }).on("error", function(err) {
+    console.error("Your TV is not connected or the bridge isn't responding!");
+    lgtv.disconnect();
+  });
+}
+
 function showAppList() {
   const lgtv = require("lgtv2")({
     url: URL,
@@ -158,7 +179,7 @@ function displayToast(msg) {
   });
   lgtv.on("connect", function() {
     lgtv.request('ssap://system.notifications/createToast', { message: msg }, function(err, res) {
-      console.log("sending message " + msg);
+      console.log("Sending message '" + msg + "'");
       lgtv.disconnect()
     });
   }).on("error", function(err) {
@@ -180,6 +201,10 @@ if (config.tvMAC === null){
 }
 
 switch(process.argv[2]) {
+  case 'status':
+    console.log("Checking status...")
+    checkStatus();
+    break;
   case 'appslist':
     console.log("Getting app list...");
     showAppList();
