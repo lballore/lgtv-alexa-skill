@@ -31,6 +31,9 @@
 **Service list**  
 `node index.js serviceslist` - Display a list of the available services and theirs API
 
+**Status**  
+`node index.js status` - Display the TV status (ON or OFF), and if ON, shows the application in use
+
 ### Available commands
 - **Turn tv on/off**: "Alexa, turn TV [on|off]"
 - **Start/stop application**: "Alexa, \[start|stop\] \[your app\]"
