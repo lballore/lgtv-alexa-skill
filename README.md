@@ -42,12 +42,17 @@
 
 ### Available vocal commands
 - **Turn tv on/off**: "Alexa, turn TV [on|off]"
-- **Start/stop application**: "Alexa, \[start|stop\] \[your app\]"
+- **Start/stop application**: "Alexa, turn \[on|off\] \[your app\]" or "Alexa,\[start|stop\] \[your app\]"
 
 ### Available applications
 - Netflix
 - YouTube
 - Broadcasting (LiveTV)
+
+### Add your application
+It's possible to add your own application if you know the appID (and if you don't just run the `appslist` command to get a list).
+Add your application on `apps.json`, restart the Alexa bridge and run the device discovery on Alexa app on your mobile or at the 
+[Alexa website](https://alexa.amazon.com).
 
 ### Thanks to
 - [hobbyquacker, lgtv2 library](https://github.com/hobbyquaker/lgtv2)
