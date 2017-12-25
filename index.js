@@ -1,222 +1,100 @@
 "use strict";
 
-const ip = require("ip");
-const FauxMo = require("fauxmojs");
-const config = require("./config.json");
-const wol = require("node-wol");
+const API = require("./lgtv-api.json");
+const CONFIG = require("./config.json");
+const PACKAGE = require("./package.json");
 
-const START_PORT = 11000;
-const URL = 'ws://' + config.IP + ':3000'
+const MyLGTV = require("./LGTVbridge.js");
 
-function turnOn(onComplete) {
-  wol.wake(config.tvMAC, function(error) {
-    if (error) {
-      console.log("failed to turn on TV");
-    } else {
-      if (onComplete) {
-        whenActive(onComplete);
-      }
-    }
-  });
+function __init(command, arg) {
+  if(checkMacAddress() && checkArgs(command, arg))
+    executeCommand(command, arg);
+  else
+    return false;
 }
 
-function whenActive(doFunc){
-  const lgtv = require("lgtv2")({
-    url: URL
-  });
-  lgtv.on("connect", function() {
-    lgtv.subscribe("ssap://com.webos.applicationManager/getForegroundAppInfo", function(err, res){
-      if (res.appId.length > 0){
-        doFunc();
-        lgtv.disconnect();
-      }
-    });
-  });
+function checkMacAddress() {
+  if (CONFIG.tvMAC === null){
+    console.error('\nInvalid or not specified MAC address for your device on config file\n');
+    return false;
+  }
+  return true;
 }
 
-function turnOff() {
-  const lgtv = require("lgtv2")({
-    url: URL
-  });
+function executeCommand(command, arg) {
+  var mylgtv = new MyLGTV();
 
-  lgtv.on("connect", function() {
-    console.log('connected');
-    lgtv.request('ssap://system/turnOff', function(err, res) {
-      lgtv.disconnect();
-    });
-  });
+  switch(command) {
+    case 'alexa':
+      mylgtv.initAlexa();
+      break;
+    case 'appslist':
+      mylgtv.execute(API.APPS_LIST, 'subscribe', {});
+      break;
+    case 'servicelist':
+      mylgtv.execute(API.SERVICE_LIST, 'subscribe', {});
+      break;
+    case 'status':
+      mylgtv.execute(API.IN_USE_APP, 'subscribe', {});
+      break;
+    case 'toast':
+      mylgtv.execute(API.TOAST_CREATOR, 'subscribe', {"message": arg});
+      break;
+    case 'tvoff':
+      mylgtv.turnOffTV('exitProcess');
+      break;
+    case 'tvon':
+      mylgtv.turnOnTV('exitProcess');
+      break;
+    case 'mute':
+      var setMute = (arg == 'true');
+      mylgtv.execute(API.MUTE_TV, 'subscribe', {"mute" : setMute});
+      break;
+    default:
+      return;
+  }
 }
 
-function launchApp(appId) {
-  const lgtv = require("lgtv2")({
-    url: URL
-  });
-
-  lgtv.on('connect', function() {
-    console.log("launching app", appId);
-    lgtv.request('ssap://system.launcher/launch', {
-      id: appId
-    }, function(err, res) {
-      console.log(err, res);
-      lgtv.disconnect();
-    });
-  });
-}
-
-function closeApp(appId) {
-  const lgtv = require("lgtv2")({
-    url: URL
-  });
-
-  lgtv.on('connect', function() {
-    console.log('connected');
-    lgtv.request('ssap://system.launcher/close', {
-      id: appId
-    }, function(err, res) {
-      console.log(err, res);
-      lgtv.disconnect();
-    });
-  });
-}
-
-function devicesList() {
-  let devices = [];
-
-  devices.push({
-    name: "TV",
-    port: START_PORT,
-    handler: (action) => {
-      console.log("tv action:", action);
-      if (action == "on") {
-        turnOn();
-      } else {
-        turnOff();
-      }
-    }
-  });
-
-  config.apps.forEach(function(app, index) {
-      devices.push({
-          name: app.name,
-          port: START_PORT + index + 1,
-          handler: (action) => {
-            turnOn(function() {
-              if (action == "on") {
-                launchApp(app.id);
-              } else {
-                closeApp(app.id);
-              }
-            });
-          }
-      });
-  });
-
-return devices;
-}
-
-function checkStatus() {
-  const lgtv = require("lgtv2")({
-    url: URL,
-    reconnect: false
-  });
-  lgtv.on("connect", function() {
-    lgtv.subscribe("ssap://com.webos.applicationManager/getForegroundAppInfo", function(err, res){
-      if(res.appId.length == 0) {
-        console.log('Your TV is OFF!');
-      } else {
-        console.log('Your TV is ON!');
-        console.log('Active app:', res);
-      }
-      lgtv.disconnect();
-    });
-  }).on("error", function(err) {
-    console.error("Your TV is not connected or the bridge isn't responding!");
-    lgtv.disconnect();
-  });
-}
-
-function showAppList() {
-  const lgtv = require("lgtv2")({
-    url: URL,
-    reconnect: false
-  });
-  lgtv.on("connect", function() {
-    lgtv.subscribe("ssap://com.webos.applicationManager/listLaunchPoints", function(err, res){
-      console.log(res);
-      lgtv.disconnect();
-    });
-  }).on("error", function(err) {
-    console.error("Cannot read app list, your LG TV may not be available. Turn it on!");
-    lgtv.disconnect();
-  });
-}
-
-function showServiceList() {
-  const lgtv = require("lgtv2")({
-    url: URL,
-    reconnect: false
-  });
-  lgtv.on("connect", function() {
-    lgtv.subscribe("ssap://api/getServiceList", function(err, res){
-      console.log(res);
-      lgtv.disconnect();
-    });
-  }).on("error", function(err) {
-    console.error("Cannot read service list, your LG TV may not be available. Turn it on!");
-    lgtv.disconnect();
-  });
-}
-
-function displayToast(msg) {
-  if(typeof msg != "string") {
-    console.error("No message to send");
-    return;
+function checkArgs(command, arg) {
+  switch(command) {
+    case 'alexa':
+    case 'appslist':
+    case 'servicelist':
+    case 'status':
+    case 'tvoff':
+    case 'tvon':
+      if(typeof arg == 'undefined')
+        return true;
+      break;
+    case 'toast':
+      if(typeof arg == 'string')
+        return true;
+      break;
+    case 'mute':
+      if(arg == 'true' || arg == 'false')
+        return true;
+      break;
+    default:
+       showInstructions();
+       return false;
   }
 
-  const lgtv = require("lgtv2")({
-    url: URL,
-    reconnect: false
-  });
-  lgtv.on("connect", function() {
-    lgtv.request('ssap://system.notifications/createToast', { message: msg }, function(err, res) {
-      console.log("Sending message '" + msg + "'");
-      lgtv.disconnect()
-    });
-  }).on("error", function(err) {
-    console.error("Cannot send message! " + err);
-    lgtv.disconnect();
-  });
+  showInstructions();
+  return false;
 }
 
-function initAlexa() {
-  let fauxMo = new FauxMo({
-    ipAddress: ip.address(),
-    devices: devicesList()
-  });
+function showInstructions() {
+  console.log('\n*** Bridge for LG Smart TVs ***' + ' ' + PACKAGE.version);
+  console.log('\nUSAGE: node index.js <option> <parameter>');
+  console.log('\nOPTIONS:');
+  console.log('\t* alexa - Bridge for Amazon Alexa');
+  console.log('\t* appslist - Displays info about all apps available in your TV');
+  console.log('\t* servicelist - Displays info about all services available in your TV');
+  console.log('\t* toast "<message>" - Displays a toast message in your TV');
+  console.log('\t* tvoff - Turns off your TV');
+  console.log('\t* tvon - Turns on your TV\n');
 }
 
-if (config.tvMAC === null){
-  console.error("Error: Enter your LG TV's MAC address into config.json!");
-  return;
-}
 
-switch(process.argv[2]) {
-  case 'status':
-    console.log("Checking status...")
-    checkStatus();
-    break;
-  case 'appslist':
-    console.log("Getting app list...");
-    showAppList();
-    break;
-  case 'servicelist':
-    console.log("Getting service list...");
-    showServiceList();
-    break;
-  case 'toast':
-    displayToast(process.argv[3]);
-    break;
-  default:
-    initAlexa();
-    console.log('started..');
-}
+__init(process.argv[2], process.argv[3]);
+

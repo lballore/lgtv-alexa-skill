@@ -34,7 +34,13 @@
 **Status**  
 `node index.js status` - Display the TV status (ON or OFF), and if ON, shows the application in use
 
-### Available commands
+**Mute on/off**
+`node index.js mute [true|false]` - Mute/Unmute your TV
+
+**Turn TV on/off**
+`node index.js [tvon|tvoff]` - Turn the TV on or off
+
+### Available vocal commands
 - **Turn tv on/off**: "Alexa, turn TV [on|off]"
 - **Start/stop application**: "Alexa, \[start|stop\] \[your app\]"
 

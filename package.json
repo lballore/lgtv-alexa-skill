@@ -1,6 +1,6 @@
 {
   "name": "lgtv-alexa-skill",
-  "version": "1.0.0beta",
+  "version": "1.0.0",
   "description": "JS only bridge between LG TV and Amazon alexa",
   "main": "index.js",
   "scripts": {

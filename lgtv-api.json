@@ -1,0 +1,11 @@
+{
+  "APP_CLOSER": "ssap://system.launcher/close",
+  "APP_LAUNCHER": "ssap://system.launcher/launch",
+  "APPS_LIST": "ssap://com.webos.applicationManager/listLaunchPoints",
+  "IN_USE_APP": "ssap://com.webos.applicationManager/getForegroundAppInfo",
+  "MUTE_TV": "ssap://audio/setMute",
+  "SERVICE_LIST": "ssap://api/getServiceList",
+  "TOAST_CREATOR": "ssap://system.notifications/createToast",
+  "TURN_OFF_TV": "ssap://system/turnOff"
+}
+
