@@ -19,25 +19,25 @@
 - **The first time, turning on/off the TV will ask for permission.** Just confirm the pairing and your bridge is ready!
 
 ### Functions
-**Alexa bridge**  
+**Alexa bridge**<br/>
 `node index.js` - Makes the vocal commands for TV and apps available
 
-**Toast**  
+**Toast**<br/>
 `node index.js toast "[your message]"` - Display a toast message on your TV
 
-**Apps list**  
+**Apps list**<br/> 
 `node index.js appslist` - Display all the apps installed on your Smart TV and provides some useful info (appID etc.)
 
-**Service list**  
+**Service list**<br/>
 `node index.js serviceslist` - Display a list of the available services and theirs API
 
-**Status**  
+**Status**<br/>
 `node index.js status` - Display the TV status (ON or OFF), and if ON, shows the application in use
 
-**Mute on/off**
+**Mute on/off**<br/>
 `node index.js mute [true|false]` - Mute/Unmute your TV
 
-**Turn TV on/off**
+**Turn TV on/off**<br/>
 `node index.js [tvon|tvoff]` - Turn the TV on or off
 
 ### Available vocal commands
