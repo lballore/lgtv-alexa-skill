@@ -37,6 +37,9 @@ function executeCommand(command, arg) {
     case 'status':
       mylgtv.execute(API.IN_USE_APP, 'subscribe', {});
       break;
+    case 'appstatus':
+      mylgtv.execute(API.APP_STATUS, 'subscribe', {"id": arg});
+      break;
     case 'toast':
       mylgtv.execute(API.TOAST_CREATOR, 'subscribe', {"message": arg});
       break;

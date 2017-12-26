@@ -21,7 +21,8 @@ var LGTVBridge = function () {
 
   this.connectToTV = function() {
     return require("lgtv2")({
-      url: URL
+      url: URL,
+      reconnect: false
     });
   };
 
@@ -39,10 +40,11 @@ var LGTVBridge = function () {
       name: CONFIG.tvNAME,
       port: START_PORT,
       handler: (action) => {
-        console.log("Executing TV action:", action);
         if (action == "on") {
+          console.log("\nTurning on " + CONFIG.tvNAME + ' ...\n');
           _self.turnOnTV();
         } else {
+          console.log("\nTurning off " + CONFIG.tvNAME + ' ...\n');
           _self.turnOffTV();
         }
       }
@@ -54,27 +56,23 @@ var LGTVBridge = function () {
   this.turnOnTV = function(exitProcess) {
     var wol = require("node-wol");
 
-    console.log("\nTurning on " + CONFIG.tvNAME + ' ...\n');
     wol.wake(CONFIG.tvMAC, function(error) {
       if (error) {
         console.error("Can't turn on your TV");
       }
-      if(exitProcess == 'exitProcess')
-        process.exit();
     });
   };
 
   this.turnOffTV = function(exitProcess) {
     var lgtv = _self.connectToTV();
     lgtv.on("connect", function() {
-      lgtv.subscribe(API.TURN_OFF_TV, {}, function(err, res) {
-        console.log("\nTurning off " + CONFIG.tvNAME + ' ...\n');
-        lgtv.disconnect();
+      lgtv.request(API.TURN_OFF_TV, {}, function(err, res) {
+        if(res.returnValue == true)
+          lgtv.disconnect();
       });
     }).on("error", function(err) {
       if(err.code == 'ECONNREFUSED') {
-        console.log('\nReconnecting...\n');
-        _self.turnOffTV();
+        setTimeout(_self.turnOffTV(), 2000);
       } else {
         console.error("Error while turning off your TV:", err);
         lgtv.disconnect();

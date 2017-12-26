@@ -1,6 +1,7 @@
 {
   "APP_CLOSER": "ssap://system.launcher/close",
   "APP_LAUNCHER": "ssap://system.launcher/launch",
+  "APP_STATUS": "ssap://system.launcher/getAppState",
   "APPS_LIST": "ssap://com.webos.applicationManager/listLaunchPoints",
   "IN_USE_APP": "ssap://com.webos.applicationManager/getForegroundAppInfo",
   "MUTE_TV": "ssap://audio/setMute",

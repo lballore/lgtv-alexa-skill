@@ -34,6 +34,9 @@
 **Status**<br/>
 `node index.js status` - Display the TV status (ON or OFF), and if ON, shows the application in use
 
+**Application status**<br/>
+`node index.js appstatus [app ID]` - Display the status of the application specified by an ID
+
 **Mute on/off**<br/>
 `node index.js mute [true|false]` - Mute/Unmute your TV
 
