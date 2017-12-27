@@ -8,7 +8,7 @@
 ### To run
 - Enter your TV's MAC address and IP address into config.json
 - `npm install`
-- `node index.js`
+- `node index.js alexa`
 
 ### To do on the first run
 - Be sure your Alexa-ready device is up and running
