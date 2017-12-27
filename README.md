@@ -46,6 +46,7 @@
 ### Available vocal commands
 - **Turn tv on/off**: "Alexa, turn TV [on|off]"
 - **Start/stop application**: "Alexa, turn \[on|off\] \[your app\]" or "Alexa,\[start|stop\] \[your app\]"
+- **Mute/unmute tv**: "Alexa, turn _muting mode_ \[on|off\]"
 
 ### Available applications
 - Netflix
