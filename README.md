@@ -20,7 +20,7 @@
 
 ### Functions
 **Alexa bridge**<br/>
-`node index.js` - Makes the vocal commands for TV and apps available
+`node index.js alexa` - Makes the vocal commands for TV and apps available
 
 **Toast**<br/>
 `node index.js toast "[your message]"` - Display a toast message on your TV
