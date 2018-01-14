@@ -44,9 +44,10 @@ function executeCommand(command, arg) {
       mylgtv.execute(API.TOAST_CREATOR, 'subscribe', {"message": arg});
       break;
     case 'tvoff':
-      mylgtv.turnOffTV('exitProcess');
+      mylgtv.turnOffTV();
       break;
     case 'tvon':
+      console.log("\nTurning on " + CONFIG.tvNAME + ' ...\n');
       mylgtv.turnOnTV('exitProcess');
       break;
     case 'mute':
@@ -96,6 +97,7 @@ function showInstructions() {
   console.log('\t* toast "<message>" - Displays a toast message in your TV');
   console.log('\t* tvoff - Turns off your TV');
   console.log('\t* tvon - Turns on your TV\n');
+  console.log('\t* mute true|false - Mute/unmute your TV');
 }
 
 

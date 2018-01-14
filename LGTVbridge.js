@@ -59,11 +59,14 @@ var LGTVBridge = function () {
     wol.wake(CONFIG.tvMAC, function(error) {
       if (error) {
         console.error("Can't turn on your TV");
+      } else {
+        if(exitProcess == 'exitProcess')
+          process.exit();
       }
     });
   };
 
-  this.turnOffTV = function(exitProcess) {
+  this.turnOffTV = function() {
     var lgtv = _self.connectToTV();
     lgtv.on("connect", function() {
       lgtv.request(API.TURN_OFF_TV, {}, function(err, res) {
