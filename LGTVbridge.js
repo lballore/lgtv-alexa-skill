@@ -55,9 +55,8 @@ var LGTVBridge = function () {
 
   this.turnOnTV = function(exitProcess) {
     var wol = require("node-wol");
-    var options = {'address': CONFIG.tvIP}
 
-    wol.wake(CONFIG.tvMAC, options, function(error) {
+    wol.wake(CONFIG.tvMAC, function(error) {
       if (error) {
         console.error("Can't turn on your TV");
       } else {
