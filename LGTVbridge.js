@@ -37,7 +37,7 @@ var LGTVBridge = function () {
 
   this.initTV = function() {
     var myTV = {
-      name: CONFIG.tvNAME,
+      name: CONFIG.tvAppNAME,
       port: START_PORT,
       handler: (action) => {
         if (action == "on") {
