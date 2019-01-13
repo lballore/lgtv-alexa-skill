@@ -30,6 +30,7 @@
     "ip": "^1.1.5",
     "lgtv2": "^1.4.1",
     "node-wol": "^0.1.1",
+    "npm-check-updates": "^2.15.0",
     "websocket": "^1.0.28"
   }
 }
