@@ -10,13 +10,15 @@ var LGTVBridge = function () {
 
   this.initAlexa = function() {
     var ip = require("ip");
-    var FauxMo = require("fauxmojs");
+    var FauxMo = require("node-fauxmo");
 
     console.log('\nPreparing Amazon Alexa bridge listener...\n')
     let fauxMo = new FauxMo({
-      ipAddress: ip.address(),
       devices: _self.getDevicesList()
     });
+
+    console.log('Fake WEMO devices found:')
+    console.log(_self.getDevicesList())
   };
 
   this.connectToTV = function() {

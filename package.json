@@ -29,8 +29,9 @@
     "fauxmojs": "^1.0.3",
     "ip": "^1.1.5",
     "lgtv2": "^1.4.1",
+    "node-fauxmo": "0.0.7",
     "node-wol": "^0.1.1",
-    "npm-check-updates": "^2.15.0",
-    "websocket": "^1.0.28"
+    "npm-check-updates": "^3.1.23",
+    "websocket": "^1.0.30"
   }
 }
