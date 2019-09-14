@@ -4,6 +4,7 @@ const API = require("./lgtv-api.json");
 const CONFIG = require("./config.json");
 const START_PORT = 11000;
 const URL = 'ws://' + CONFIG.tvIP + ':3000'
+const ACTION_ON = 1
 
 var LGTVBridge = function () {
   var _self = this;
@@ -42,7 +43,7 @@ var LGTVBridge = function () {
       name: CONFIG.tvAppNAME,
       port: START_PORT,
       handler: (action) => {
-        if (action == "on") {
+        if (action == ACTION_ON) {
           console.log("\nTurning on " + CONFIG.tvNAME + ' ...\n');
           _self.turnOnTV();
         } else {
@@ -94,7 +95,7 @@ var LGTVBridge = function () {
           name: app.displayName,
           port: START_PORT + (index + 1),
           handler: (action) => {
-            if (action == "on") {
+            if (action == ACTION_ON) {
               console.log("APP: Turning " + app.displayName + ' ON');
               _self.execute(API.APP_LAUNCHER, 'request', {id: app.id}, 'sendMagicPkg');
             } else {
@@ -117,7 +118,7 @@ var LGTVBridge = function () {
         name: func.displayName,
         port: START_PORT + 100 + (index + 1),
         handler: (action) => {
-          if (action == "on") {
+          if (action == ACTION_ON) {
             _self.execute(func.commandON, 'subscribe', func.paramsON);
           } else {
             _self.execute(func.commandOFF, 'subscribe', func.paramsOFF);
