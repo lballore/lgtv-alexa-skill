@@ -26,8 +26,6 @@
   },
   "homepage": "https://github.com/lucone83/lgtv-alexa-skill#readme",
   "dependencies": {
-    "fauxmojs": "^1.0.3",
-    "ip": "^1.1.5",
     "lgtv2": "^1.4.1",
     "node-fauxmo": "0.0.7",
     "node-wol": "^0.1.1",
