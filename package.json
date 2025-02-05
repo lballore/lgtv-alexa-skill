@@ -29,7 +29,7 @@
     "lgtv2": "^1.4.1",
     "node-fauxmo": "0.0.7",
     "node-wol": "^0.1.1",
-    "npm-check-updates": "^3.1.23",
+    "npm-check-updates": "^17.1.14",
     "websocket": "^1.0.30"
   }
 }
