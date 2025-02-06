@@ -3,12 +3,12 @@
 
 ### Software requirements
 - node.js
-- npm
+- npm >= 14
 
 ### To run
 - Enter your TV's MAC address and IP address into config.json
 - `npm install`
-- `node index.js alexa`
+- `node app.js alexa`
 
 ### To do on the first run
 - Be sure your Alexa-ready device is up and running
@@ -20,28 +20,28 @@
 
 ### Functions
 **Alexa bridge**<br/>
-`node index.js alexa` - Makes the vocal commands for TV and apps available
+`node app.js alexa` - Makes the vocal commands for TV and apps available
 
 **Toast**<br/>
-`node index.js toast "[your message]"` - Display a toast message on your TV
+`node app.js toast "[your message]"` - Display a toast message on your TV
 
-**Apps list**<br/> 
-`node index.js appslist` - Display all the apps installed on your Smart TV and provides some useful info (appID etc.)
+**Apps list**<br/>
+`node app.js appslist` - Display all the apps installed on your Smart TV and provides some useful info (appID etc.)
 
 **Service list**<br/>
-`node index.js serviceslist` - Display a list of the available services and theirs API
+`node app.js serviceslist` - Display a list of the available services and theirs API
 
 **Status**<br/>
-`node index.js status` - Display the TV status (ON or OFF), and if ON, shows the application in use
+`node app.js status` - Display the TV status (ON or OFF), and if ON, shows the application in use
 
 **Application status**<br/>
-`node index.js appstatus [app ID]` - Display the status of the application specified by an ID
+`node app.js appstatus [app ID]` - Display the status of the application specified by an ID
 
 **Mute on/off**<br/>
-`node index.js mute [true|false]` - Mute/Unmute your TV
+`node app.js mute [true|false]` - Mute/Unmute your TV
 
 **Turn TV on/off**<br/>
-`node index.js [tvon|tvoff]` - Turn the TV on or off
+`node app.js [tvon|tvoff]` - Turn the TV on or off
 
 ### Available vocal commands
 - **Turn tv on/off**: "Alexa, turn TV [on|off]"
@@ -55,7 +55,7 @@
 
 ### Add your application
 It's possible to add your own application if you know the appID (and if you don't just run the `appslist` command to get a list).
-Add your application on `apps.json`, restart the Alexa bridge and run the device discovery on Alexa app on your mobile or at the 
+Add your application on `apps.json`, restart the Alexa bridge and run the device discovery on Alexa app on your mobile or at the
 [Alexa website](https://alexa.amazon.com).
 
 ### Thanks to
