@@ -1,3 +1,4 @@
+
 {
   "APP_CLOSER": "ssap://system.launcher/close",
   "APP_LAUNCHER": "ssap://system.launcher/launch",
@@ -9,4 +10,3 @@
   "TOAST_CREATOR": "ssap://system.notifications/createToast",
   "TURN_OFF_TV": "ssap://system/turnOff"
 }
-

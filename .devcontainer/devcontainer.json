@@ -1,0 +1,20 @@
+{
+    "name": "LGTV Alexa Skill",
+    "dockerFile": "Dockerfile",
+    "context": "..",
+    "customizations": {
+        "settings": {
+            "terminal.integrated.shell.linux": "/bin/bash"
+        },
+        "vscode": {
+            "extensions": [
+                "yzhang.markdown-all-in-one",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    },
+    "workspaceFolder": "/workspaces/lgtv-alexa-skill",
+    "postCreateCommand": "npm install",
+    "postAttachCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+    "remoteUser": "node"
+}

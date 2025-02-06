@@ -178,7 +178,7 @@ var LGTVBridge = function () {
       lgtv.disconnect();
     });
   };
-  
+
 }
 
 module.exports = LGTVBridge;

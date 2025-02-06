@@ -1,10 +1,10 @@
 "use strict";
 
-const API = require("./lgtv-api.json");
-const CONFIG = require("./config.json");
+const API = require("./src/lgtv-api.json");
+const CONFIG = require("./src/config.json");
 const PACKAGE = require("./package.json");
 
-const MyLGTV = require("./LGTVbridge.js");
+const MyLGTV = require("./src/LGTVbridge.js");
 
 function __init(command, arg) {
   if(checkMacAddress() && checkArgs(command, arg))
@@ -100,6 +100,4 @@ function showInstructions() {
   console.log('\t* mute true|false - Mute/unmute your TV');
 }
 
-
 __init(process.argv[2], process.argv[3]);
-
