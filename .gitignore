@@ -38,3 +38,6 @@ jspm_packages
 
 # OS files
 .DS_Store
+
+# Binary files
+bin/lgtv

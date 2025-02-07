@@ -2,6 +2,7 @@ FROM node:14
 
 # Install additional dependencies if needed
 RUN apt-get update && apt-get install -y vim git gnupg2 curl jq
+RUN npm install -g pkg
 
 # Set the working directory
 WORKDIR /lgtv-alexa-skill
