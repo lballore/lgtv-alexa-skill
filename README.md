@@ -2,8 +2,14 @@
 ## Node.js bridge for LG Smart TV and Amazon Alexa
 
 ### Software requirements
-- node.js
-- npm >= 14
+- node >= 14
+- Docker (for the dev container)
+
+### Working environment
+It's recommended to make use of the `.devcontainer` to have all the needed tools and libraries available without the need to set them up manually.
+Just run in in VSCode or any other IDE supporting dev containers.
+
+In alternative, proceed to setup a local node environment, with the constraint listed above.
 
 ### To run
 - Enter your TV's MAC address and IP address into config.json
@@ -61,6 +67,3 @@ Add your application on `apps.json`, restart the Alexa bridge and run the device
 ### Thanks to
 - [hobbyquacker, lgtv2 library](https://github.com/hobbyquaker/lgtv2)
 - [neil-morrison-44, forked project](https://github.com/neil-morrison44/lg-alexa-node)
-
-
-
