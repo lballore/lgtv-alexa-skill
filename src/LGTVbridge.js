@@ -2,6 +2,7 @@
 
 const API = require("./lgtv-api.json");
 const CONFIG = require("./config.json");
+
 const START_PORT = 11000;
 const URL = 'ws://' + CONFIG.tvIP + ':3000'
 const ACTION_ON = 1
@@ -23,6 +24,11 @@ var LGTVBridge = function () {
   };
 
   this.connectToTV = function() {
+    if (!CONFIG.tvIP) {
+      console.error('TV IP not defined in config');
+      return null;
+    }
+    console.log('Connecting to TV at: ', URL);
     return require("lgtv2")({
       url: URL,
       reconnect: false
@@ -78,7 +84,7 @@ var LGTVBridge = function () {
       });
     }).on("error", function(err) {
       if(err.code == 'ECONNREFUSED') {
-        setTimeout(_self.turnOffTV(), 2000);
+        setTimeout(() => _self.turnOffTV(), 2000);
       } else {
         console.error("Error while turning off your TV:", err);
         lgtv.disconnect();
@@ -130,7 +136,7 @@ var LGTVBridge = function () {
     return functions;
   };
 
-  this.execute = function(command, type, params, sendMagicPkg) {
+  this.execute = function(command, type, params, sendMagicPkg = null) {
     if (sendMagicPkg === 'sendMagicPkg') {
       _self.turnOnTV();
       _self.runFunction(command, type, params);
