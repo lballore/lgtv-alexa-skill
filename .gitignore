@@ -41,3 +41,6 @@ jspm_packages
 
 # Binary files
 bin/lgtv
+
+# Other
+docs/*debugging*
