@@ -54,6 +54,9 @@ function executeCommand(command, arg) {
       var setMute = (arg == 'true');
       mylgtv.execute(API.MUTE_TV, 'subscribe', {"mute" : setMute});
       break;
+    case 'version':
+      console.log('\nBridge for LG Smart TVs version: ' + PACKAGE.version + '\n');
+      break;
     default:
       return;
   }
@@ -67,6 +70,7 @@ function checkArgs(command, arg) {
     case 'status':
     case 'tvoff':
     case 'tvon':
+    case 'version':
       if(typeof arg == 'undefined')
         return true;
       break;
@@ -98,6 +102,7 @@ function showInstructions() {
   console.log('\t* tvoff - Turns off your TV');
   console.log('\t* tvon - Turns on your TV\n');
   console.log('\t* mute true|false - Mute/unmute your TV');
+  console.log('\t* version - Displays the version of this bridge\n');
 }
 
 __init(process.argv[2], process.argv[3]);

@@ -14,7 +14,9 @@
         }
     },
     "workspaceFolder": "/workspaces/lgtv-alexa-skill",
-    "postCreateCommand": "npm install",
     "postAttachCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+    "runArgs": [
+        "--network=host"
+    ],
     "remoteUser": "node"
 }
