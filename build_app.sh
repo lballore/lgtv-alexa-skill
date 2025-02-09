@@ -4,7 +4,7 @@
 set -e
 
 # Define the entry point of your application
-ENTRY_POINT="app.js"
+ENTRY_POINT="index.js"
 
 # Define the output binary name
 OUTPUT_BINARY="./bin/lgtv"

@@ -1,10 +1,10 @@
 "use strict";
 
-const API = require("./src/lgtv-api.json");
-const CONFIG = require("./src/config.json");
+const API = require("./libs/lgtv_api.json");
+const TV_DATA = require("./libs/tv_data.json");
 const PACKAGE = require("./package.json");
 
-const MyLGTV = require("./src/LGTVbridge.js");
+const MyLGTV = require("./libs/LGTVbridge.js");
 
 function __init(command, arg) {
   if(checkMacAddress() && checkArgs(command, arg))
@@ -14,7 +14,7 @@ function __init(command, arg) {
 }
 
 function checkMacAddress() {
-  if (CONFIG.tvMAC === null){
+  if (TV_DATA.tvMAC === null){
     console.error('\nInvalid or not specified MAC address for your device on config file\n');
     return false;
   }
@@ -47,7 +47,7 @@ function executeCommand(command, arg) {
       mylgtv.turnOffTV();
       break;
     case 'tvon':
-      console.log("\nTurning on " + CONFIG.tvNAME + ' ...\n');
+      console.log("\nTurning on " + TV_DATA.tvNAME + ' ...\n');
       mylgtv.turnOnTV('exitProcess');
       break;
     case 'mute':

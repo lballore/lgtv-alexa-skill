@@ -1,10 +1,11 @@
 "use strict";
 
-const API = require("./lgtv-api.json");
-const CONFIG = require("./config.json");
+const API = require("./lgtv_api.json");
+const TV_DATA = require("./tv_data.json");
 
 const START_PORT = 11000;
-const URL = 'ws://' + CONFIG.tvIP + ':3000'
+const URL = 'ws://' + TV_DATA.tvIP + ':3000'
+const KEYFILE_PATH = '/var/tmp/lgtv.key';
 const ACTION_ON = 1
 
 var LGTVBridge = function () {
@@ -28,14 +29,13 @@ var LGTVBridge = function () {
   };
 
   this.connectToTV = function () {
-    const wsUrl = 'ws://' + CONFIG.tvIP + ':3000';
-    const keyFile = '/tmp/lgtv.key';
+    const wsUrl = 'ws://' + TV_DATA.tvIP + ':3000';
 
     let clientKey = '';
     try {
       const fs = require('fs');
-      if (fs.existsSync(keyFile)) {
-        clientKey = fs.readFileSync(keyFile, 'utf8');
+      if (fs.existsSync(KEYFILE_PATH)) {
+        clientKey = fs.readFileSync(KEYFILE_PATH, 'utf8');
         console.log("Found existing client key");
       }
     }
@@ -50,7 +50,7 @@ var LGTVBridge = function () {
         url: wsUrl,
         reconnect: false,
         saveKey: false,
-        keyFile: keyFile,
+        keyFile: KEYFILE_PATH,
         clientKey: clientKey
       };
       const lgtv = lgtv2(options);
@@ -61,7 +61,7 @@ var LGTVBridge = function () {
       lgtv.on('connect', function(response) {
         if (response && response['client-key']) {
           console.log("Saving client key ...");
-          _self.saveTVKey(keyFile, response['client-key']);
+          _self.saveTVKey(response['client-key']);
         }
       });
 
@@ -73,10 +73,10 @@ var LGTVBridge = function () {
     }
   };
 
-  this.saveTVKey = function (keyFile, clientKey) {
+  this.saveTVKey = function (clientKey) {
     try {
       const fs = require('fs');
-      fs.writeFileSync(keyFile, clientKey);
+      fs.writeFileSync(KEYFILE_PATH, clientKey);
       console.log("Client key saved.");
     }
     catch (err) {
@@ -104,14 +104,14 @@ var LGTVBridge = function () {
 
   this.initTV = function () {
     var myTV = {
-      name: CONFIG.tvAppNAME,
+      name: TV_DATA.tvAppNAME,
       port: START_PORT,
       handler: (action) => {
         if (action == ACTION_ON) {
-          console.log("\nTurning on " + CONFIG.tvNAME + ' ...\n');
+          console.log("\nTurning on " + TV_DATA.tvNAME + ' ...\n');
           _self.turnOnTV();
         } else {
-          console.log("\nTurning off " + CONFIG.tvNAME + ' ...\n');
+          console.log("\nTurning off " + TV_DATA.tvNAME + ' ...\n');
           _self.turnOffTV();
         }
       }
@@ -123,7 +123,7 @@ var LGTVBridge = function () {
   this.turnOnTV = function (exitProcess) {
     var wol = require("node-wol");
 
-    wol.wake(CONFIG.tvMAC, function (error) {
+    wol.wake(TV_DATA.tvMAC, function (error) {
       if (error) {
         console.error("Can't turn on your TV");
       } else {
