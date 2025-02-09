@@ -1,6 +1,6 @@
 {
-  "tvMAC": "XX:XX:XX:XX:XX:XX",
+  "tvMAC": "xx:xx:xx:xx:xx:xx",
   "tvIP": "xxx.xxx.xxx.xxx",
-  "tvNAME": "tv-name",
+  "tvNAME": "tvName",
   "tvAppNAME": "TV"
 }

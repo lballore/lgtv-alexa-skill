@@ -19,7 +19,7 @@ fi
 # Check if target parameter is provided
 if [ -z "$1" ]
 then
-    echo "No target provided. Usage: ./build_app.sh <target> (e.g. node18-linux-arm64)"
+    echo "No target provided. Usage: ./build_app.sh <target> (e.g. node14-linux-arm64)"
     exit 1
 fi
 
